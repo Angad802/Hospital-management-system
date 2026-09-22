@@ -12,20 +12,24 @@ import { getBilling, addBill, deleteBill, updateBill } from "./controller/billin
 import { getProfile, updateProfile } from "./controller/profileControllers.js";
 
 dotenv.config();
+import path from "path";
+import { fileURLToPath } from "url";
 import pool from "./config/db.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res) => {
+app.get("/api/health", (req, res) => {
     res.json({
         message: "medicore hms api is running"
     });
-
 });
 
 app.post("/api/auth/register", async (req, res) => {
@@ -148,6 +152,11 @@ app.get("/api/billing", authMiddleware, getBilling);
 app.post("/api/billing", authMiddleware, addBill);
 app.delete("/api/billing/:id", authMiddleware, deleteBill);
 app.put("/api/billing/:id", authMiddleware, updateBill);
+
+// Serve frontend for all non-API routes (SPA routing)
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 app.listen(port, () => {
     console.log(`server is running on port ${port}`)
