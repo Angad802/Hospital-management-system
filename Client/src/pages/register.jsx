@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || "https://humorous-heart-production-1e51.up.railway.app";
+const API_URL = import.meta.env.VITE_API_URL || "https://hms-backend-api-qhcq.onrender.com";
 
 function Register() {
     const navigate = useNavigate();
