@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: hms-backend-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: DATABASE_URL
+        value: postgresql://postgres:zBKEIiylJWCHdMVuDBXvcfuFZNiBQCvQ@nozomi.proxy.rlwy.net:47272/railway
+      - key: JWT_SECRET
+        value: medicore_secret_key_123
+      - key: PORT
+        value: 5000
