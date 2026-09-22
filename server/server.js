@@ -91,7 +91,7 @@ app.post("/api/auth/login", async (req, res) => {
             email: user.email,
             role: user.role
         },
-            process.env.JWT_SECRET,
+            process.env.JWT_SECRET || "medicore_secret_key_123",
             {
                 expiresIn: "1h"
             }

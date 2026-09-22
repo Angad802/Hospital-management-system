@@ -5,19 +5,13 @@ dotenv.config();
 
 const { Pool } = pg;
 
-const pool = process.env.DATABASE_URL
-    ? new Pool({
-        connectionString: process.env.DATABASE_URL,
-        ssl: {
-            rejectUnauthorized: false
-        }
-    })
-    : new Pool({
-        user: process.env.DB_USER,
-        host: process.env.DB_HOST,
-        database: process.env.DB_NAME,
-        password: process.env.DB_PASSWORD,
-        port: process.env.DB_PORT
-    });
+const connectionString = process.env.DATABASE_URL || "postgresql://postgres:zBKEIiylJWCHdMVuDBXvcfuFZNiBQCvQ@nozomi.proxy.rlwy.net:47272/railway";
+
+const pool = new Pool({
+    connectionString,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 
 export default pool;
