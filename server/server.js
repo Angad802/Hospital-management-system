@@ -154,7 +154,7 @@ app.delete("/api/billing/:id", authMiddleware, deleteBill);
 app.put("/api/billing/:id", authMiddleware, updateBill);
 
 // Serve frontend for all non-API routes (SPA routing)
-app.get("*", (req, res) => {
+app.use((req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
